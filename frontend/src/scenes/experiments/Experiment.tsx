@@ -1,4 +1,4 @@
-import { Card, Col, Collapse, Form, Input, Progress, Row, Select, Skeleton, Tag, Tooltip } from 'antd'
+import { Card, Col, Collapse, Form, Input, Progress, Row, Select, Skeleton, Tag } from 'antd'
 import { BindLogic, useActions, useValues } from 'kea'
 import { PageHeader } from 'lib/components/PageHeader'
 import { PropertyFilters } from 'lib/components/PropertyFilters/PropertyFilters'
@@ -39,6 +39,10 @@ import { ExperimentImplementationDetails } from './ExperimentImplementationDetai
 import { LemonButton } from 'lib/components/LemonButton'
 import { router } from 'kea-router'
 import { MathAvailability } from 'scenes/insights/filters/ActionFilter/ActionFilterRow/ActionFilterRow'
+import { LemonDivider, LemonInput, LemonSelect, LemonSelectOptions } from '@posthog/lemon-ui'
+import { LemonLabel } from 'lib/components/LemonLabel/LemonLabel'
+import { Tooltip } from 'lib/components/Tooltip'
+import { PureField } from 'lib/forms/Field'
 
 export const scene: SceneExport = {
     component: Experiment,
@@ -156,25 +160,18 @@ export function Experiment(): JSX.Element {
         <>
             {experimentId === 'new' || editingExistingExperiment ? (
                 <>
-                    <Row
-                        align="middle"
-                        justify="space-between"
-                        style={{ borderBottom: '1px solid var(--border)', marginBottom: '1rem', paddingBottom: 8 }}
-                    >
+                    <div className="flex items-center justify-between">
                         <PageHeader title={'New experiment'} />
-                        <Row>
-                            <LemonButton
-                                type="secondary"
-                                className="mr-2"
-                                onClick={() => router.actions.push(urls.experiments())}
-                            >
+                        <div className="flex gap-2">
+                            <LemonButton type="secondary" to={urls.experiments()}>
                                 Cancel
                             </LemonButton>
                             <LemonButton type="primary" htmlType="submit" form="new-experiment">
                                 Save
                             </LemonButton>
-                        </Row>
-                    </Row>
+                        </div>
+                    </div>
+                    <LemonDivider className="my-4" />
                     <Form
                         name="new-experiment"
                         layout="vertical"
@@ -192,11 +189,13 @@ export function Experiment(): JSX.Element {
                     >
                         <div>
                             <BindLogic logic={insightLogic} props={insightProps}>
-                                <Row>
-                                    <Col span={12} style={{ paddingRight: 24 }}>
-                                        <Row className="w-full">
+                                <div>
+                                    {/* eslint-disable-next-line react/forbid-dom-props */}
+                                    <div style={{ maxWidth: '40rem' }}>
+                                        <div className="flex flex-wrap">
                                             <Form.Item
                                                 style={{ marginRight: 16 }}
+                                                className="flex-1"
                                                 label="Name"
                                                 name="name"
                                                 rules={[{ required: true, message: 'You have to enter a name.' }]}
@@ -205,6 +204,7 @@ export function Experiment(): JSX.Element {
                                             </Form.Item>
                                             <Form.Item
                                                 style={{ marginBottom: '1rem' }}
+                                                className="flex-1"
                                                 label={
                                                     <div>
                                                         Feature flag key{' '}
@@ -226,7 +226,7 @@ export function Experiment(): JSX.Element {
                                                     disabled={editingExistingExperiment}
                                                 />
                                             </Form.Item>
-                                        </Row>
+                                        </div>
 
                                         <Form.Item
                                             label={
@@ -244,105 +244,98 @@ export function Experiment(): JSX.Element {
                                         </Form.Item>
 
                                         {newExperimentData?.parameters?.feature_flag_variants && (
-                                            <Col>
-                                                <label>
-                                                    <b>Experiment variants</b>
-                                                </label>
-                                                <div className="text-muted">
+                                            <div>
+                                                <LemonLabel>Experiment variants</LemonLabel>
+                                                <p className="text-muted">
                                                     Participants are divided into variant groups evenly. All experiments
                                                     must consist of a control group and at least one test group.
                                                     Experiments may have at most 3 test groups. Variant names can only
                                                     contain letters, numbers, hyphens, and underscores.
-                                                </div>
-                                                <Col className="variants">
+                                                </p>
+                                                <div className="border rounded mb-4">
                                                     {newExperimentData.parameters.feature_flag_variants.map(
                                                         (variant: MultivariateFlagVariant, idx: number) => (
-                                                            <Form
+                                                            // <Form
+                                                            //     key={`${variant}-${idx}`}
+                                                            //     initialValues={{
+                                                            //         key: variant.key,
+                                                            //     }}
+                                                            //     onValuesChange={(changedValues) => {
+                                                            //         updateExperimentGroup(changedValues, idx)
+                                                            //     }}
+                                                            // >
+                                                            <div
+                                                                className="flex items-center p-2 gap-2 border-b"
                                                                 key={`${variant}-${idx}`}
-                                                                initialValues={{
-                                                                    key: variant.key,
-                                                                }}
-                                                                onValuesChange={(changedValues) => {
-                                                                    updateExperimentGroup(changedValues, idx)
-                                                                }}
                                                             >
-                                                                <Row
-                                                                    key={`${variant}-${idx}`}
-                                                                    className={`feature-flag-variant ${
-                                                                        idx === 0
-                                                                            ? 'border-t'
-                                                                            : idx >= 3
-                                                                            ? 'border-b'
-                                                                            : ''
-                                                                    }`}
+                                                                <div
+                                                                    className="p-1 rounded w-14 text-xs font-medium text-center"
+                                                                    style={{ ...variantLabelColors[idx] }}
                                                                 >
-                                                                    <div
-                                                                        className="variant-label"
-                                                                        style={{ ...variantLabelColors[idx] }}
-                                                                    >
-                                                                        {idx === 0 ? 'Control' : 'Test'}
-                                                                    </div>
-                                                                    <Form.Item
-                                                                        name="key"
-                                                                        rules={[
-                                                                            {
-                                                                                required: true,
-                                                                                message: 'Key should not be empty.',
-                                                                            },
-                                                                            {
-                                                                                required: true,
-                                                                                pattern: /^([A-z]|[a-z]|[0-9]|-|_)+$/,
-                                                                                message: (
-                                                                                    <>
-                                                                                        <ExclamationCircleFilled
-                                                                                            style={{ color: '#F96132' }}
-                                                                                        />{' '}
-                                                                                        Variant names can only contain
-                                                                                        letters, numbers, hyphens, and
-                                                                                        underscores.
-                                                                                    </>
-                                                                                ),
-                                                                            },
-                                                                        ]}
-                                                                        style={{ display: 'contents' }}
-                                                                    >
-                                                                        <Input
-                                                                            disabled={idx === 0}
-                                                                            data-attr="feature-flag-variant-key"
-                                                                            data-key-index={idx.toString()}
-                                                                            className="ph-ignore-input"
-                                                                            placeholder={`example-variant-${idx + 1}`}
-                                                                            autoComplete="off"
-                                                                            autoCapitalize="off"
-                                                                            autoCorrect="off"
-                                                                            spellCheck={false}
-                                                                        />
-                                                                    </Form.Item>
+                                                                    {idx === 0 ? 'Control' : 'Test'}
+                                                                </div>
 
-                                                                    <div className="float-right">
-                                                                        {!(idx === 0 || idx === 1) && (
-                                                                            <Tooltip
-                                                                                title="Delete this variant"
-                                                                                placement="bottomLeft"
-                                                                            >
-                                                                                <LemonButton
-                                                                                    status="primary-alt"
-                                                                                    size="small"
-                                                                                    icon={<IconDelete />}
-                                                                                    onClick={() =>
-                                                                                        removeExperimentGroup(idx)
-                                                                                    }
-                                                                                />
-                                                                            </Tooltip>
-                                                                        )}
-                                                                    </div>
-                                                                </Row>
-                                                            </Form>
+                                                                {/* <Form.Item
+                                                                    name="key"
+                                                                    rules={[
+                                                                        {
+                                                                            required: true,
+                                                                            message: 'Key should not be empty.',
+                                                                        },
+                                                                        {
+                                                                            required: true,
+                                                                            pattern: /^([A-z]|[a-z]|[0-9]|-|_)+$/,
+                                                                            message: (
+                                                                                <>
+                                                                                    <ExclamationCircleFilled
+                                                                                        style={{ color: '#F96132' }}
+                                                                                    />{' '}
+                                                                                    Variant names can only contain
+                                                                                    letters, numbers, hyphens, and
+                                                                                    underscores.
+                                                                                </>
+                                                                            ),
+                                                                        },
+                                                                    ]}
+                                                                    style={{ display: 'contents' }}
+                                                                > */}
+                                                                <LemonInput
+                                                                    disabled={idx === 0}
+                                                                    data-attr="feature-flag-variant-key"
+                                                                    data-key-index={idx.toString()}
+                                                                    className="ph-ignore-input flex-1"
+                                                                    placeholder={`example-variant-${idx + 1}`}
+                                                                    autoComplete="off"
+                                                                    autoCapitalize="off"
+                                                                    autoCorrect="off"
+                                                                    spellCheck={false}
+                                                                    fullWidth={false}
+                                                                />
+                                                                {/* </Form.Item> */}
+
+                                                                <div className="float-right">
+                                                                    {!(idx === 0 || idx === 1) && (
+                                                                        <Tooltip
+                                                                            title="Delete this variant"
+                                                                            placement="bottomLeft"
+                                                                        >
+                                                                            <LemonButton
+                                                                                status="primary-alt"
+                                                                                icon={<IconDelete />}
+                                                                                onClick={() =>
+                                                                                    removeExperimentGroup(idx)
+                                                                                }
+                                                                            />
+                                                                        </Tooltip>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                            // </Form>
                                                         )
                                                     )}
 
                                                     {newExperimentData.parameters.feature_flag_variants.length < 4 && (
-                                                        <div className="feature-flag-variant border-b">
+                                                        <div className="p-2">
                                                             <LemonButton
                                                                 onClick={() => addExperimentGroup()}
                                                                 fullWidth
@@ -352,23 +345,22 @@ export function Experiment(): JSX.Element {
                                                             </LemonButton>
                                                         </div>
                                                     )}
-                                                </Col>
-                                            </Col>
+                                                </div>
+                                            </div>
                                         )}
 
-                                        <Row className="person-selection">
-                                            <div className="mb-2">
-                                                <strong>Select participants</strong>
-                                            </div>
-                                            <Col>
-                                                <div className="text-muted">
+                                        <LemonDivider className="my-4" />
+
+                                        <div className="space-y-4 mb-4">
+                                            <div>
+                                                <LemonLabel>Select participants</LemonLabel>
+                                                <p className="text-muted">
                                                     Select the entities who will participate in this experiment. If no
                                                     filters are set, 100% of participants will be targeted.
-                                                </div>
-                                                <div className="mt-4 mb-2">
-                                                    <strong>Participant type</strong>
-                                                </div>
-                                                <Select
+                                                </p>
+                                            </div>
+                                            <PureField label="Participant Type">
+                                                <LemonSelect
                                                     value={
                                                         newExperimentData?.filters?.aggregation_group_type_index !=
                                                         undefined
@@ -378,16 +370,19 @@ export function Experiment(): JSX.Element {
                                                     onChange={(value) => {
                                                         const groupTypeIndex = value !== -1 ? value : undefined
                                                         if (
+                                                            typeof value === 'number' &&
                                                             groupTypeIndex !=
-                                                            newExperimentData?.filters?.aggregation_group_type_index
+                                                                newExperimentData?.filters?.aggregation_group_type_index
                                                         ) {
                                                             setFilters({
                                                                 properties: [],
-                                                                aggregation_group_type_index: groupTypeIndex,
+                                                                aggregation_group_type_index:
+                                                                    groupTypeIndex || undefined,
                                                             })
                                                             setNewExperimentData({
                                                                 filters: {
-                                                                    aggregation_group_type_index: groupTypeIndex,
+                                                                    aggregation_group_type_index:
+                                                                        groupTypeIndex || undefined,
                                                                     // :TRICKY: We reset property filters after changing what you're aggregating by.
                                                                     properties: [],
                                                                 },
@@ -396,87 +391,73 @@ export function Experiment(): JSX.Element {
                                                     }}
                                                     data-attr="participant-aggregation-filter"
                                                     dropdownMatchSelectWidth={false}
-                                                >
-                                                    <Select.Option key={-1} value={-1}>
-                                                        Persons
-                                                    </Select.Option>
-                                                    {groupTypes.map((groupType) => (
-                                                        <Select.Option
-                                                            key={groupType.group_type_index}
-                                                            value={groupType.group_type_index}
-                                                        >
-                                                            {capitalizeFirstLetter(
-                                                                aggregationLabel(groupType.group_type_index).plural
-                                                            )}
-                                                        </Select.Option>
-                                                    ))}
-                                                </Select>
-                                                <div className="mt-4 mb-2">
-                                                    <strong>Filters</strong>
-                                                </div>
-                                                <div className="mb-4">
-                                                    <PropertyFilters
-                                                        pageKey={'experiment-participants-property'}
-                                                        propertyFilters={
-                                                            experimentInsightType === InsightType.FUNNELS
-                                                                ? convertPropertyGroupToProperties(
-                                                                      funnelsFilters.properties
-                                                                  )
-                                                                : convertPropertyGroupToProperties(
-                                                                      trendsFilters.properties
-                                                                  )
+                                                    options={groupTypes.reduce(
+                                                        (acc, groupType) => ({
+                                                            ...acc,
+                                                            [groupType.group_type_index]: {
+                                                                label: capitalizeFirstLetter(
+                                                                    aggregationLabel(groupType.group_type_index).plural
+                                                                ),
+                                                            },
+                                                        }),
+                                                        {
+                                                            [-1]: { label: 'Persons' },
                                                         }
-                                                        onChange={(anyProperties) => {
-                                                            setNewExperimentData({
-                                                                filters: {
-                                                                    properties: anyProperties as PropertyFilter[],
-                                                                },
-                                                            })
-                                                            setFilters({
-                                                                properties: anyProperties.filter(isValidPropertyFilter),
-                                                            })
-                                                        }}
-                                                        taxonomicGroupTypes={taxonomicGroupTypesForSelection}
-                                                    />
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                    </Col>
+                                                    )}
+                                                />
+                                            </PureField>
 
-                                    <Row className="metrics-selection">
-                                        <Col span={12}>
-                                            <div className="mb-2" data-tooltip="experiment-goal-type">
-                                                <b>Goal type</b>
+                                            <PureField label="Filters">
+                                                <PropertyFilters
+                                                    pageKey={'experiment-participants-property'}
+                                                    propertyFilters={
+                                                        experimentInsightType === InsightType.FUNNELS
+                                                            ? convertPropertyGroupToProperties(
+                                                                  funnelsFilters.properties
+                                                              )
+                                                            : convertPropertyGroupToProperties(trendsFilters.properties)
+                                                    }
+                                                    onChange={(anyProperties) => {
+                                                        setNewExperimentData({
+                                                            filters: {
+                                                                properties: anyProperties as PropertyFilter[],
+                                                            },
+                                                        })
+                                                        setFilters({
+                                                            properties: anyProperties.filter(isValidPropertyFilter),
+                                                        })
+                                                    }}
+                                                    taxonomicGroupTypes={taxonomicGroupTypesForSelection}
+                                                />
+                                            </PureField>
+                                        </div>
+                                    </div>
+
+                                    <LemonDivider className="my-4" />
+
+                                    <div className="flex gap-4">
+                                        <div className="flex-1 space-y-4">
+                                            <PureField label="Goal type">
                                                 <div className="text-muted">
                                                     {experimentInsightType === InsightType.TRENDS
                                                         ? 'Track counts of a specific event or action'
                                                         : 'Track how many persons complete a sequence of actions and or events'}
                                                 </div>
-                                            </div>
-                                            <Select
-                                                style={{ display: 'flex' }}
-                                                value={experimentInsightType}
-                                                onChange={setExperimentInsightType}
-                                                suffixIcon={<CaretDownOutlined />}
-                                                dropdownMatchSelectWidth={false}
-                                            >
-                                                <Select.Option value={InsightType.TRENDS}>
-                                                    <Col>
-                                                        <span>
-                                                            <b>Trend</b>
-                                                        </span>
-                                                    </Col>
-                                                </Select.Option>
-                                                <Select.Option value={InsightType.FUNNELS}>
-                                                    <Col>
-                                                        <span>
-                                                            <b>Conversion funnel</b>
-                                                        </span>
-                                                    </Col>
-                                                </Select.Option>
-                                            </Select>
-                                            <div className="my-4">
-                                                <b>Experiment goal</b>
+                                                <LemonSelect
+                                                    value={experimentInsightType || undefined}
+                                                    onChange={(v) => setExperimentInsightType(v || undefined)}
+                                                    dropdownMatchSelectWidth={false}
+                                                    options={
+                                                        {
+                                                            [InsightType.TRENDS]: { label: 'Trend' },
+                                                            [InsightType.FUNNELS]: { label: 'Conversion Funnel' },
+                                                        } as LemonSelectOptions
+                                                    }
+                                                />
+                                            </PureField>
+
+                                            <div>
+                                                <LemonLabel>Experiment goal</LemonLabel>
                                                 {experimentInsightType === InsightType.TRENDS && (
                                                     <div className="text-muted">
                                                         Trend-based experiments can have at most one graph series. This
@@ -531,7 +512,8 @@ export function Experiment(): JSX.Element {
                                                     ]}
                                                 />
                                             )}
-                                            <Col className="secondary-metrics">
+                                            <LemonDivider className="my-4" />
+                                            <div className="mb-4">
                                                 <div>
                                                     <b>Secondary metrics</b>
                                                     <span className="text-muted ml-2">(optional)</span>
@@ -544,9 +526,9 @@ export function Experiment(): JSX.Element {
                                                     onMetricsChange={(metrics) => setSecondaryMetrics(metrics)}
                                                     initialMetrics={parsedSecondaryMetrics}
                                                 />
-                                            </Col>
-                                        </Col>
-                                        <Col span={12} className="pl-4">
+                                            </div>
+                                        </div>
+                                        <div className="flex-1">
                                             <div className="card-secondary mb-4" data-tooltip="experiment-preview">
                                                 Goal preview
                                             </div>
@@ -555,11 +537,11 @@ export function Experiment(): JSX.Element {
                                                 disableTable={true}
                                                 disableCorrelationTable={true}
                                             />
-                                        </Col>
-                                    </Row>
-                                </Row>
-                                <Row>
-                                    <Card className="experiment-preview">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="border rounded p-6 experiment-preview">
                                         <ExperimentPreview
                                             experiment={newExperimentData}
                                             trendCount={trendCount}
@@ -568,8 +550,8 @@ export function Experiment(): JSX.Element {
                                             funnelEntrants={entrants}
                                             funnelConversionRate={conversionRate}
                                         />
-                                    </Card>
-                                </Row>
+                                    </div>
+                                </div>
                             </BindLogic>
                         </div>
                         <LemonButton className="float-right" type="primary" htmlType="submit">
