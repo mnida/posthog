@@ -15,6 +15,8 @@ import {
     InsightModel,
     IntegrationType,
     LicenseType,
+    PersonProperty,
+    PersonType,
     PluginLogEntry,
     PropertyDefinition,
     SharingConfigurationType,
@@ -228,12 +230,12 @@ class ApiRequest {
     }
 
     // # Persons
-    public persons(): ApiRequest {
-        return this.addPathComponent('person')
+    public persons(teamId?: TeamType['id']): ApiRequest {
+        return this.projectsDetail(teamId).addPathComponent('person')
     }
 
-    public person(id: number): ApiRequest {
-        return this.persons().addPathComponent(id)
+    public person(id: number, teamId?: TeamType['id']): ApiRequest {
+        return this.persons(teamId).addPathComponent(id)
     }
 
     public personActivity(id: number | undefined): ApiRequest {
@@ -657,7 +659,18 @@ const api = {
         },
     },
 
-    person: {
+    persons: {
+        async getProperties(): Promise<PersonProperty[]> {
+            return new ApiRequest().persons().withAction('properties').get()
+        },
+
+        async list(query: { search?: string; distinct_id?: string }): Promise<PaginatedResponse<PersonType>> {
+            return new ApiRequest().persons().withQueryString(toParams(query)).get()
+        },
+        async update(id: number, person: Partial<PersonType>): Promise<PersonType> {
+            return new ApiRequest().person(id).update({ data: person })
+        },
+
         determineCSVUrl(filters: PersonFilters): string {
             return new ApiRequest().persons().withQueryString(toParams(filters)).assembleFullUrl()
         },

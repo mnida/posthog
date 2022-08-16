@@ -137,7 +137,7 @@ export const personsLogic = kea<personsLogicType>({
                     export_context: {
                         path: cohort
                             ? api.cohorts.determineCSVUrl(cohort, listFilters)
-                            : api.person.determineCSVUrl(listFilters),
+                            : api.persons.determineCSVUrl(listFilters),
                         max_limit: 10000,
                     },
                 },
@@ -156,7 +156,7 @@ export const personsLogic = kea<personsLogicType>({
         editProperty: async ({ key, newValue }) => {
             const person = values.person
 
-            if (person) {
+            if (person && person.id) {
                 let parsedValue = newValue
 
                 // Instrumentation stuff
@@ -188,7 +188,7 @@ export const personsLogic = kea<personsLogicType>({
                 actions.setPerson({ ...person }) // To update the UI immediately while the request is being processed
                 // :KLUDGE: Person properties are updated asynchronosly in the plugin server - the response won't reflect
                 //      the 'updated' properties yet.
-                await api.update(`api/person/${person.id}`, person)
+                await api.persons.update(person.id, person)
                 lemonToast.success(`Person property ${action}`)
 
                 eventUsageLogic.actions.reportPersonPropertyUpdated(
@@ -224,10 +224,9 @@ export const personsLogic = kea<personsLogicType>({
                 loadPersons: async ({ url }) => {
                     if (!url) {
                         if (props.cohort) {
-                            url = `api/cohort/${props.cohort}/persons/?${toParams(values.listFilters)}`
-                        } else {
-                            url = `api/person/?${toParams(values.listFilters)}`
+                            return api.get(`api/cohort/${props.cohort}/persons/?${toParams(values.listFilters)}`)
                         }
+                        return api.persons.list(values.listFilters)
                     }
                     return await api.get(url)
                 },
@@ -237,7 +236,7 @@ export const personsLogic = kea<personsLogicType>({
             null as PersonType | null,
             {
                 loadPerson: async ({ id }): Promise<PersonType | null> => {
-                    const response = await api.get(`api/person/?${toParams({ distinct_id: id })}`)
+                    const response = await api.persons.list({ distinct_id: id })
                     const person = response.results[0] || (null as PersonType | null)
                     if (person) {
                         actions.reportPersonDetailViewed(person)
