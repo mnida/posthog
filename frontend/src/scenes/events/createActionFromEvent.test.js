@@ -2,6 +2,7 @@ import api from 'lib/api'
 import { router } from 'kea-router'
 import { createActionFromEvent } from './createActionFromEvent'
 import { initKeaTests } from '~/test/init'
+import mockAutocaptureEvent from './__mocks__/autocaptureEvent.json'
 
 jest.mock('lib/api')
 
@@ -174,6 +175,31 @@ describe('createActionFromEvent()', () => {
                                 tag_name: 'svg',
                                 text: undefined,
                                 selector: '[data-attr="link"]',
+                            },
+                        ],
+                    })
+                })
+            })
+
+            describe('with complex event case', () => {
+                given('eventType', () => 'click')
+                given('event', () => mockAutocaptureEvent)
+                given('dataAttributes', () => ['data-attr'])
+
+                it('handles the complex case', async () => {
+                    await given.subject()
+
+                    expect(api.actions.create).toHaveBeenCalledWith({
+                        name: 'clicked i with text "Pageview count by event\'s $feature/a-test"',
+                        steps: [
+                            {
+                                event: '$autocapture',
+                                url_matching: 'exact',
+                                href: '/insights/foxmFqM0',
+                                selector: '#root > i',
+                                tag_name: 'i',
+                                text: "Pageview count by event's $feature/a-test",
+                                url: 'http://localhost:8000/insights',
                             },
                         ],
                     })

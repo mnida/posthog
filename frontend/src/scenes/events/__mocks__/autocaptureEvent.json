@@ -1,0 +1,368 @@
+{
+    "id": "1234",
+    "distinct_id": "lrh1uz1k7v25JcPqRSCTVbOm7EI29Yg2G8oThGhdv1G",
+    "properties": {
+        "$os": "Mac OS X",
+        "$browser": "Firefox",
+        "$device_type": "Desktop",
+        "$current_url": "http://localhost:8000/insights",
+        "$host": "localhost:8000",
+        "$pathname": "/insights",
+        "$browser_version": 103,
+        "$screen_height": 982,
+        "$screen_width": 1512,
+        "$viewport_height": 831,
+        "$viewport_width": 1512,
+        "$lib": "web",
+        "$lib_version": "1.29.0",
+        "$insert_id": "qmcrn4la6ju3fcmo",
+        "$time": 1660834737.684,
+        "distinct_id": "lrh1uz1k7v25JcPqRSCTVbOm7EI29Yg2G8oThGhdv1G",
+        "$device_id": "1826e094e802289-0a1a2f9742a9818-402d2c37-384000-1826e094e812ab8",
+        "$user_id": "lrh1uz1k7v25JcPqRSCTVbOm7EI29Yg2G8oThGhdv1G",
+        "$referrer": "http://localhost:8000/person/invite_0182924a-750b-0000-583e-65d66affd0fd",
+        "$referring_domain": "localhost:8000",
+        "is_demo_project": false,
+        "$groups": {
+            "project": "01826e09-491f-0000-c01c-a4849b0fabaa",
+            "organization": "01826e09-44c5-0000-3665-33ce1558b131",
+            "instance": "http://localhost:8000"
+        },
+        "$active_feature_flags": [
+            "cloud-announcement",
+            "4562-nps",
+            "new-paths-ui-edge-weights",
+            "938-breakdown-by-multiple-properties",
+            "funnels-cue-opt-out-7301",
+            "retention-breakdown",
+            "insight-legends",
+            "recordings-in-insights",
+            "hackathon-apm",
+            "7569-insight-cohorts",
+            "invite-teammates-prompt",
+            "dashboard-permissions",
+            "session-recording-console",
+            "smoothing-interval",
+            "billing-limit",
+            "kafka-inspector",
+            "8929-insight-editor-panels",
+            "9618-frontend-apps",
+            "onboarding-1_5",
+            "breakdown-attribution",
+            "simplify-actions",
+            "toolbar-launch-side-action",
+            "feature-flag-experience-continuity",
+            "person-modal-exports",
+            "billing-lock-everything",
+            "IN_APP_PROMPTS_EXPERIMENT",
+            "session-recording-player-v3",
+            "test-1",
+            "a-test"
+        ],
+        "$feature/cloud-announcement": true,
+        "$feature/4562-nps": true,
+        "$feature/new-paths-ui-edge-weights": true,
+        "$feature/938-breakdown-by-multiple-properties": true,
+        "$feature/funnels-cue-opt-out-7301": true,
+        "$feature/retention-breakdown": true,
+        "$feature/insight-legends": true,
+        "$feature/recordings-in-insights": true,
+        "$feature/hackathon-apm": true,
+        "$feature/7569-insight-cohorts": true,
+        "$feature/invite-teammates-prompt": true,
+        "$feature/dashboard-permissions": true,
+        "$feature/session-recording-console": true,
+        "$feature/smoothing-interval": true,
+        "$feature/billing-limit": true,
+        "$feature/kafka-inspector": true,
+        "$feature/8929-insight-editor-panels": true,
+        "$feature/9618-frontend-apps": true,
+        "$feature/onboarding-1_5": true,
+        "$feature/breakdown-attribution": true,
+        "$feature/simplify-actions": true,
+        "$feature/toolbar-launch-side-action": true,
+        "$feature/feature-flag-experience-continuity": true,
+        "$feature/person-modal-exports": true,
+        "$feature/billing-lock-everything": true,
+        "$feature/IN_APP_PROMPTS_EXPERIMENT": "test",
+        "$feature/session-recording-player-v3": true,
+        "$feature/test-1": "test",
+        "$feature/a-test": "variant2",
+        "posthog_version": "1.38.0",
+        "realm": "hosted-clickhouse",
+        "email_service_available": true,
+        "slack_service_available": true,
+        "$override_feature_flags": {
+            "8929-insight-editor-panels": false
+        },
+        "$event_type": "click",
+        "$ce_version": 1,
+        "token": "phc_zmsd0K9smSFg9Q1OdfnSfCCwM0hhjapGCgoSEHvLiNo",
+        "$session_id": "182b131474ae49-09006a160fa7ab-402d2c37-16a7f0-182b131474b177c",
+        "$window_id": "182b131474c15f3-044fcb98afd6b88-402d2c37-16a7f0-182b131474d22da",
+        "$set_once": {
+            "$initial_os": "Mac OS X",
+            "$initial_browser": "Firefox",
+            "$initial_device_type": "Desktop",
+            "$initial_current_url": "http://localhost:8000/insights",
+            "$initial_pathname": "/insights",
+            "$initial_browser_version": 103,
+            "$initial_referrer": "http://localhost:8000/person/invite_0182924a-750b-0000-583e-65d66affd0fd",
+            "$initial_referring_domain": "localhost:8000"
+        },
+        "$geoip_city_name": "Sydney",
+        "$geoip_country_name": "Australia",
+        "$geoip_country_code": "AU",
+        "$geoip_continent_name": "Oceania",
+        "$geoip_continent_code": "OC",
+        "$geoip_postal_code": "2000",
+        "$geoip_latitude": -33.8715,
+        "$geoip_longitude": 151.2006,
+        "$geoip_time_zone": "Australia/Sydney",
+        "$geoip_subdivision_1_code": "NSW",
+        "$geoip_subdivision_1_name": "New South Wales",
+        "$plugins_succeeded": ["GeoIP (1)"],
+        "$plugins_failed": [],
+        "$plugins_deferred": [],
+        "$ip": "127.0.0.1",
+        "$group_0": "01826e09-491f-0000-c01c-a4849b0fabaa",
+        "$group_1": "01826e09-44c5-0000-3665-33ce1558b131",
+        "$group_2": "http://localhost:8000"
+    },
+    "event": "$autocapture",
+    "timestamp": "2022-08-18T14:58:57.703000+00:00",
+    "person": {
+        "is_identified": true,
+        "distinct_ids": ["lrh1uz1k7v25JcPqRSCTVbOm7EI29Yg2G8oThGhdv1G"],
+        "properties": {
+            "email": "ben@posthog.com"
+        }
+    },
+    "elements": [
+        {
+            "event": null,
+            "text": "Pageview count by event's $feature/a-test",
+            "tag_name": "i",
+            "attr_class": null,
+            "href": "/insights/foxmFqM0",
+            "attr_id": null,
+            "nth_child": 1,
+            "nth_of_type": 1,
+            "attributes": {
+                "attr__href": "/insights/foxmFqM0"
+            },
+            "order": 0
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "a",
+            "attr_class": ["row-name"],
+            "href": "/insights/foxmFqM0",
+            "attr_id": null,
+            "nth_child": 1,
+            "nth_of_type": 1,
+            "attributes": {
+                "attr__class": "row-name",
+                "attr__href": "/insights/foxmFqM0"
+            },
+            "order": 1
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "div",
+            "attr_class": null,
+            "href": null,
+            "attr_id": null,
+            "nth_child": 1,
+            "nth_of_type": 1,
+            "attributes": {
+                "attr__style": "display: flex; align-items: center;"
+            },
+            "order": 2
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "td",
+            "attr_class": [],
+            "href": null,
+            "attr_id": null,
+            "nth_child": null,
+            "nth_of_type": null,
+            "attributes": {
+                "attr__class": "\"nth-child=",
+                "2\"nth-of-type": "2"
+            },
+            "order": 3
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "tr",
+            "attr_class": [],
+            "href": null,
+            "attr_id": null,
+            "nth_child": null,
+            "nth_of_type": 1,
+            "attributes": {
+                "attr__class": "\"attr__data-row-key=",
+                "250\"nth-child": "1"
+            },
+            "order": 4
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "tbody",
+            "attr_class": null,
+            "href": null,
+            "attr_id": null,
+            "nth_child": 3,
+            "nth_of_type": 1,
+            "attributes": {},
+            "order": 5
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "table",
+            "attr_class": null,
+            "href": null,
+            "attr_id": null,
+            "nth_child": 1,
+            "nth_of_type": 1,
+            "attributes": {},
+            "order": 6
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "div",
+            "attr_class": ["LemonTable__content"],
+            "href": null,
+            "attr_id": null,
+            "nth_child": 1,
+            "nth_of_type": 1,
+            "attributes": {
+                "attr__class": "LemonTable__content"
+            },
+            "order": 7
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "div",
+            "attr_class": ["scrollable__inner"],
+            "href": null,
+            "attr_id": null,
+            "nth_child": 1,
+            "nth_of_type": 1,
+            "attributes": {
+                "attr__class": "scrollable__inner"
+            },
+            "order": 8
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "div",
+            "attr_class": ["LemonTable", "scrollable"],
+            "href": null,
+            "attr_id": null,
+            "nth_child": 6,
+            "nth_of_type": 6,
+            "attributes": {
+                "attr__class": "LemonTable scrollable"
+            },
+            "order": 9
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "div",
+            "attr_class": ["saved-insights"],
+            "href": null,
+            "attr_id": null,
+            "nth_child": 2,
+            "nth_of_type": 2,
+            "attributes": {
+                "attr__class": "saved-insights"
+            },
+            "order": 10
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "main",
+            "attr_class": ["ant-layout-content", "main-app-content"],
+            "href": null,
+            "attr_id": null,
+            "nth_child": 3,
+            "nth_of_type": 1,
+            "attributes": {
+                "attr__class": "ant-layout-content main-app-content"
+            },
+            "order": 11
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "div",
+            "attr_class": ["SideBar", "SideBar__layout"],
+            "href": null,
+            "attr_id": null,
+            "nth_child": 4,
+            "nth_of_type": 3,
+            "attributes": {
+                "attr__class": "SideBar SideBar__layout"
+            },
+            "order": 12
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "section",
+            "attr_class": ["ant-layout"],
+            "href": null,
+            "attr_id": null,
+            "nth_child": 1,
+            "nth_of_type": 1,
+            "attributes": {
+                "attr__class": "ant-layout"
+            },
+            "order": 13
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "div",
+            "attr_class": null,
+            "href": null,
+            "attr_id": "root",
+            "nth_child": 4,
+            "nth_of_type": 2,
+            "attributes": {
+                "attr__id": "root"
+            },
+            "order": 14
+        },
+        {
+            "event": null,
+            "text": null,
+            "tag_name": "body",
+            "attr_class": [],
+            "href": null,
+            "attr_id": null,
+            "nth_child": null,
+            "nth_of_type": null,
+            "attributes": {
+                "attr__class": "\"nth-child=",
+                "2\"nth-of-type": "1"
+            },
+            "order": 15
+        }
+    ],
+    "elements_chain": "i:attr__href=\"/insights/foxmFqM0\"href=\"/insights/foxmFqM0\"nth-child=\"1\"nth-of-type=\"1\"text=\"Pageview count by event's $feature/a-test\";a.row-name:attr__class=\"row-name\"attr__href=\"/insights/foxmFqM0\"href=\"/insights/foxmFqM0\"nth-child=\"1\"nth-of-type=\"1\";div:attr__style=\"display: flex; align-items: center;\"nth-child=\"1\"nth-of-type=\"1\";td.:attr__class=\"\"nth-child=\"2\"nth-of-type=\"2\";tr.:attr__class=\"\"attr__data-row-key=\"250\"nth-child=\"1\"nth-of-type=\"1\";tbody:nth-child=\"3\"nth-of-type=\"1\";table:nth-child=\"1\"nth-of-type=\"1\";div.LemonTable__content:attr__class=\"LemonTable__content\"nth-child=\"1\"nth-of-type=\"1\";div.scrollable__inner:attr__class=\"scrollable__inner\"nth-child=\"1\"nth-of-type=\"1\";div.LemonTable.scrollable:attr__class=\"LemonTable scrollable\"nth-child=\"6\"nth-of-type=\"6\";div.saved-insights:attr__class=\"saved-insights\"nth-child=\"2\"nth-of-type=\"2\";main.ant-layout-content.main-app-content:attr__class=\"ant-layout-content main-app-content\"nth-child=\"3\"nth-of-type=\"1\";div.SideBar.SideBar__layout:attr__class=\"SideBar SideBar__layout\"nth-child=\"4\"nth-of-type=\"3\";section.ant-layout:attr__class=\"ant-layout\"nth-child=\"1\"nth-of-type=\"1\";div:attr__id=\"root\"attr_id=\"root\"nth-child=\"4\"nth-of-type=\"2\";body.:attr__class=\"\"nth-child=\"2\"nth-of-type=\"1\""
+}
